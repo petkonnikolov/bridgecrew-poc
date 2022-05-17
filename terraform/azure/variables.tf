@@ -4,6 +4,6 @@ variable "location" {
 }
 
 variable "environment" {
-  default     = "dev"
+  default     = "bridgecrew-poc"
   description = "Must be all lowercase letters or numbers"
 }
