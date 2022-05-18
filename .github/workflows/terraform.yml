@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     # Set the working directory to main for the config files
-
     defaults:
       run:
         working-directory: ${{ env.tf_actions_working_dir }}
@@ -22,11 +21,13 @@ jobs:
 
     - name: Terraform fmt
       id: fmt
+      shell: bash
       run: terraform fmt -check
       continue-on-error: true
 
     - name: Terraform Init
       id: init
+      shell: bash
       env:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
