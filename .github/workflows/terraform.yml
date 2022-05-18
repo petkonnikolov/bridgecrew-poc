@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 env:
   TF_LOG: INFO
+  tf_actions_working_dir: ./main/terraform/azure
 
 jobs:
   terraform:
@@ -14,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: terraform/azure
+        working-directory: ${{ env.tf_actions_working_dir }}
     steps:
     - uses: actions/checkout@v2
     - uses: hashicorp/setup-terraform@v2
