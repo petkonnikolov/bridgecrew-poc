@@ -44,7 +44,6 @@ jobs:
 
         - name: Terraform Plan
           id: plan
-          env:
           if: github.event_name == 'pull_request'
           run: terraform plan -no-color -backend-config="access_key=$ARM_ACCESS_KEY"
 
@@ -79,5 +78,4 @@ jobs:
 
         - name: Terraform Apply
           if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-          env:
           run: terraform apply -auto-approve
