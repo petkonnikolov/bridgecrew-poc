@@ -5,11 +5,11 @@ on:
   pull_request:
 
 jobs:
-  yor:
+  yor-job:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        name: Checkout repo
+      - name: Checkout repo
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Run yor action
