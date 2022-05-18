@@ -1,4 +1,4 @@
-name: 'Terraform Build'
+name: 'Terraform'
 
 on: [push, pull_request]
 
