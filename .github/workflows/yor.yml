@@ -1,7 +1,6 @@
 name: IaC tag and trace
 
 on:
-  push:
   pull_request:
 
 jobs:
