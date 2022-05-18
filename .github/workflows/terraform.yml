@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 env:
   TF_LOG: INFO
-  tf_actions_working_dir: ./main/terraform/azure
+  tf_actions_working_dir: "./main/terraform/azure"
 
 jobs:
   terraform:
