@@ -1,6 +1,12 @@
 name: 'Terraform'
 
-on: [push, pull_request]
+on:
+  push:
+    # paths:
+    #   - 'terraform'
+  pull_request:
+    # paths:
+    #   - 'terraform'
 
 env:
   TF_LOG: INFO
@@ -9,6 +15,12 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
 
     # Set the working directory to main for the config files
     defaults:
@@ -27,23 +39,14 @@ jobs:
 
         - name: Terraform Init
           id: init
-          env:
-            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-            ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-            ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
-          run: terraform init -backend-config="access_key=$ARM_ACCESS_KEY"
+          run: terraform init
+          # -backend-config="access_key=$ARM_ACCESS_KEY"
 
         - name: Terraform Plan
           id: plan
           env:
-            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-            ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           if: github.event_name == 'pull_request'
-          run: terraform plan -no-color
+          run: terraform plan -no-color -backend-config="access_key=$ARM_ACCESS_KEY"
 
         # - name: add-plan-comment
         #   id: comment
@@ -77,9 +80,4 @@ jobs:
         - name: Terraform Apply
           if: github.ref == 'refs/heads/main' && github.event_name == 'push'
           env:
-            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-            ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-            ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-            ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
           run: terraform apply -auto-approve
