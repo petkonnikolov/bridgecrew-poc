@@ -1,10 +1,9 @@
-name: Terraform
+name: 'Terraform'
 
 on: [push, pull_request]
 
 env:
   TF_LOG: INFO
-  tf_actions_working_dir: "./main/terraform/azure"
 
 jobs:
   terraform:
@@ -14,26 +13,26 @@ jobs:
     # Set the working directory to main for the config files
     defaults:
       run:
-        working-directory: ${{ env.tf_actions_working_dir }}
+        shell: bash
+        working-directory: ./main
+    
     steps:
-    - uses: actions/checkout@v2
-    - uses: hashicorp/setup-terraform@v2
+        # Checkout the repository to the GitHub Actions runner
+        - name: Checkout
+          uses: actions/checkout@v2
 
-    - name: Terraform fmt
-      id: fmt
-      shell: bash
-      run: terraform fmt -check
-      continue-on-error: true
+        # Install the preferred version of Terraform CLI 
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1
 
-    - name: Terraform Init
-      id: init
-      shell: bash
-      env:
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-        STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
-        CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
-      run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
+        - name: Terraform Init
+          id: init
+          env:
+            ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+            ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+            RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+            STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
+            CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
+          run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
