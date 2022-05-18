@@ -25,6 +25,7 @@ resource "azurerm_storage_account" "example" {
       retention_policy_days = 10
     }
   }
+}
 
 resource "azurerm_storage_account_network_rules" "test" {
   resource_group_name  = azurerm_resource_group.example.name
