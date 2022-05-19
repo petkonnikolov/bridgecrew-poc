@@ -1,18 +1,15 @@
 name: IaC tag and trace
 
 on:
+  push:
   pull_request:
 
 jobs:
-  yor-job:
+  yor:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        name: Checkout repo
         with:
           fetch-depth: 0
       - name: Run yor action
