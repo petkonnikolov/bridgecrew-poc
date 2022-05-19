@@ -31,7 +31,7 @@ resource "azurerm_storage_account" "example" {
     git_last_modified_at = "2022-05-19 08:50:40"
     git_last_modified_by = "nikolov_p@hotmail.com"
     git_modifiers        = "nikolov_p"
-    git_org              = "petkonnikolov"
+    git_org              = "5kancho"
     git_repo             = "bridgecrew-poc"
     yor_trace            = "7289c680-55a3-42dc-b2e4-660af1e6d396"
   }

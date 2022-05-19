@@ -9,7 +9,7 @@ resource "azurerm_virtual_network" "example" {
     git_last_modified_at = "2022-05-19 08:50:40"
     git_last_modified_by = "nikolov_p@hotmail.com"
     git_modifiers        = "nikolov_p"
-    git_org              = "petkonnikolov"
+    git_org              = "5kancho"
     git_repo             = "bridgecrew-poc"
     yor_trace            = "50aa066f-9bf0-4044-a734-1cee998811ad"
   }
