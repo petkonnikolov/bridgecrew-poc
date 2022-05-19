@@ -25,13 +25,23 @@ resource "azurerm_storage_account" "example" {
       retention_policy_days = 10
     }
   }
+  tags = {
+    git_commit           = "6ec7c5b67692ff3024838f7b0014c8f50f1d5f31"
+    git_file             = "terraform/azure/storage.tf"
+    git_last_modified_at = "2022-05-19 08:50:40"
+    git_last_modified_by = "nikolov_p@hotmail.com"
+    git_modifiers        = "nikolov_p"
+    git_org              = "petkonnikolov"
+    git_repo             = "bridgecrew-poc"
+    yor_trace            = "7289c680-55a3-42dc-b2e4-660af1e6d396"
+  }
 }
 
 resource "azurerm_storage_account_network_rules" "example" {
   storage_account_id = azurerm_storage_account.example.id
 
-  default_action = "Deny"
-  ip_rules       = ["127.0.0.1"]
+  default_action             = "Deny"
+  ip_rules                   = ["127.0.0.1"]
   virtual_network_subnet_ids = [azurerm_subnet.example.id]
-  bypass         = ["Metrics"]
+  bypass                     = ["Metrics"]
 }
