@@ -56,7 +56,7 @@ jobs:
           if: github.event_name == 'pull_request'
           run: terraform plan -no-color
 
-        - name: add-plan-comment
+        - name: Add Plan Comment
           id: comment
           uses: actions/github-script@v3
           if: github.event_name == 'pull_request'
