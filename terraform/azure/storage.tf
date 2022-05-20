@@ -25,6 +25,16 @@ resource "azurerm_storage_account" "example" {
       retention_policy_days = 10
     }
   }
+  tags = {
+    git_commit           = "7aef1f37ff0589b267125f6b88c3542c19e4a5f9"
+    git_file             = "terraform/azure/storage.tf"
+    git_last_modified_at = "2022-05-20 08:08:09"
+    git_last_modified_by = "nikolov_p@hotmail.com"
+    git_modifiers        = "nikolov_p"
+    git_org              = "5kancho"
+    git_repo             = "bridgecrew-poc"
+    yor_trace            = "3041f553-bb6a-4ee2-93ae-debe37dd3d3d"
+  }
 }
 
 resource "azurerm_storage_account_network_rules" "example" {
